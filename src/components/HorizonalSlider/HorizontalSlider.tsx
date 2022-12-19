@@ -22,6 +22,7 @@ const HorizontalSlider = ({
             fontWeight: 'bold',
             color: 'black',
             marginLeft: 10,
+            marginBottom: 10,
           }}>
           {title}
         </Text>

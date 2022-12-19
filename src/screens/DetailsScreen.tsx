@@ -7,18 +7,23 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import {RootStackParams} from '../navigation/Navigation';
 import useMovieDetails from '../hooks/useMovieDetails';
 import Loading from '../components/Loading/Loading';
 import DetailsMovie from '../components/DetailsMovie/DetailsMovie';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 interface DetailsScreenProps
   extends StackScreenProps<RootStackParams, 'DetailsScreen'> {}
 
 const screenHeight = Dimensions.get('screen').height;
 
-const DetailsScreen = ({route}: DetailsScreenProps): JSX.Element => {
+const DetailsScreen = ({
+  route,
+  navigation,
+}: DetailsScreenProps): JSX.Element => {
   const {getMovieDetails, cast, isLoadingDetails, fullMovie} =
     useMovieDetails();
 
@@ -45,7 +50,14 @@ const DetailsScreen = ({route}: DetailsScreenProps): JSX.Element => {
       {isLoadingDetails ? (
         <Loading size={20} text="" color="grey" />
       ) : (
-        <DetailsMovie movie={fullMovie!} casts={cast} />
+        <>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => navigation.pop()}>
+            <Icon name="arrow-back-outline" color={'white'} size={60} />
+          </TouchableOpacity>
+          <DetailsMovie movie={fullMovie!} casts={cast} />
+        </>
       )}
     </ScrollView>
   );
@@ -88,5 +100,10 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 16,
     opacity: 0.8,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 20,
+    left: 5,
   },
 });

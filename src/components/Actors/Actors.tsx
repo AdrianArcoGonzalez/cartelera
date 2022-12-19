@@ -16,7 +16,7 @@ const Actors = ({actors}: ActorsProps): JSX.Element => {
         renderItem={({item: actor}) => <Actor actor={actor} />}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        style={{height: 70}}
+        style={{height: 70, marginLeft: 20}}
       />
     </View>
   );

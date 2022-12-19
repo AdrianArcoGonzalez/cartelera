@@ -11,7 +11,7 @@ interface DetailsMovieInterface {
 
 const DetailsMovie = ({casts, movie}: DetailsMovieInterface) => {
   return (
-    <View style={style.detailsContainer}>
+    <View>
       <View style={style.movieInfo}>
         <Icon name="star-outline" size={20} color={'grey'} />
         <Text style={style.blackText}> {movie.vote_average} - </Text>
@@ -31,22 +31,23 @@ const DetailsMovie = ({casts, movie}: DetailsMovieInterface) => {
 };
 
 const style = StyleSheet.create({
-  detailsContainer: {
-    marginHorizontal: 20,
-  },
   movieInfo: {
+    marginLeft: 20,
     flexDirection: 'row',
   },
   blackText: {
     color: 'black',
   },
   title: {
+    marginLeft: 20,
     fontSize: 23,
+    marginBottom: 10,
     marginTop: 20,
     fontWeight: 'bold',
     color: 'black',
   },
   paragraph: {
+    marginLeft: 20,
     color: 'black',
   },
 });
