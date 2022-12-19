@@ -14,7 +14,9 @@ const getBackGroundColorsFromPicture = async (uriImage: string) => {
             primary = colors.primary;
             secondary = colors.secondary;
         }
-    } catch (error) {}
+    } catch (error) {
+        console.log('no colors');
+    }
 
     return [primary, secondary, third];
 };

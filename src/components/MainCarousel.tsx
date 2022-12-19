@@ -6,7 +6,6 @@ import {Movie} from '../interfaces/interfaces';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import getBackGroundColorsFromPicture from '../utils/getBackGroundColorsFromPicture';
 import {GradientContext} from '../context/GradientContext';
-import {useCallback} from 'react';
 
 const {width} = Dimensions.get('window');
 
@@ -18,25 +17,23 @@ const MainCarousel = ({movies}: MainCarouselProps): JSX.Element => {
     const {top} = useSafeAreaInsets();
     const {setMainColors} = useContext(GradientContext);
 
-    const getPosterColor = useCallback(
-        async (index: number) => {
-            const imageUrl = `https://image.tmdb.org/t/p/w500${movies[index].poster_path}`;
-            try {
-                const [primary = 'green', secondary = 'orange'] =
-                    await getBackGroundColorsFromPicture(imageUrl);
-                setMainColors({primary, secondary});
-            } catch (error) {
-                console.log('no colors');
-            }
-        },
-        [movies, setMainColors],
-    );
+    const getPosterColor = async (index: number) => {
+        const imageUrl = `https://image.tmdb.org/t/p/w500${movies[index].poster_path}`;
+        try {
+            const [primary = 'green', secondary = 'orange'] =
+                await getBackGroundColorsFromPicture(imageUrl);
+            setMainColors({primary, secondary});
+        } catch (error) {
+            console.log('no colors');
+        }
+    };
 
     useEffect(() => {
         if (movies.length > 0) {
             getPosterColor(0);
         }
-    }, [getPosterColor, movies.length]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [movies]);
 
     return (
         <View style={{marginTop: top + 20}}>
