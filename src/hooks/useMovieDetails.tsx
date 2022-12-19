@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 import {Cast, Creadits, FullMovie} from '../interfaces/interfaces';
 import movieDB from '../utils/customAxios';
 
@@ -17,7 +17,8 @@ const useMovieDetails = () => {
     initialMovieDetailsState,
   );
 
-  const getMovieDetails = async (id: number) => {
+  const getMovieDetails = useCallback(
+    async (id: number) => {
     const detailsPromise = movieDB.get<FullMovie>(`/${id}`);
     const creditsPromise = movieDB.get<Creadits>(`/${id}/credits`);
 
@@ -31,7 +32,8 @@ const useMovieDetails = () => {
       fullMovie: movieDetailsResponse.data,
       cast: creditsResponse.data.cast,
     });
-  };
+  },[])
+  
   return {getMovieDetails, ...movieDetails};
 };
 
