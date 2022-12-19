@@ -8,24 +8,12 @@ interface ActorProps {
 }
 
 const Actor = ({actor}: ActorProps) => {
-  const imageUrl = `https://image.tmdb.org/t/p/w500${actor.profile_path}`;
-
+  const imageUrl = actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
+                                      : actor.gender === 1 ? avatarPictures.femaleAvatar
+                                                            : avatarPictures.maleAvatar;
   return (
     <View style={style.cardContainer}>
-      {actor.profile_path ? (
         <Image style={style.actorPicture} source={{uri: imageUrl}} />
-      ) : actor.gender === 1 ? (
-        <Image
-          style={style.actorPicture}
-          source={{uri: avatarPictures.femaleAvatar}}
-        />
-      ) : (
-        <Image
-          style={style.actorPicture}
-          source={{uri: avatarPictures.maleAvatar}}
-        />
-      )}
-
       <View>
         <Text style={style.actorText}>{actor.name}</Text>
         <Text style={style.characterText}>{actor.character}</Text>
